@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -21,11 +21,12 @@ export const metadata: Metadata = {
   description: "Moderne Rauchstopp-App mit Apple-inspiriertem Design",
   keywords: ["Rauchen aufhören", "Gesundheit", "Motivation", "Rauchstopp"],
   authors: [{ name: "Quitt Team" }],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

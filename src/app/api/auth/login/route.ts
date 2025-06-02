@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        smokingData: user.smokingData,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       },
