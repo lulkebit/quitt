@@ -14,9 +14,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell,
-  PieChart,
-  Pie,
 } from 'recharts';
 import {
   format,
@@ -26,12 +23,6 @@ import {
   eachDayOfInterval,
   eachWeekOfInterval,
   eachMonthOfInterval,
-  startOfWeek,
-  endOfWeek,
-  startOfMonth,
-  endOfMonth,
-  isSameDay,
-  addDays,
 } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { SmokingStatistics } from '@/lib/smokingStats';
