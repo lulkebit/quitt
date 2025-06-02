@@ -6,16 +6,26 @@ import { AuthProvider } from "@/contexts/AuthContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Quitt Dashboard",
-  description: "Ein einfaches Dashboard mit Benutzerauthentifizierung",
+  description: "Moderne Rauchstopp-App mit Apple-inspiriertem Design",
+  keywords: ["Rauchen aufhören", "Gesundheit", "Motivation", "Rauchstopp"],
+  authors: [{ name: "Quitt Team" }],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default function RootLayout({
@@ -24,9 +34,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de">
+    <html lang="de" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900 font-sans`}
+        suppressHydrationWarning={true}
       >
         <AuthProvider>
           {children}
