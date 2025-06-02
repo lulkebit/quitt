@@ -6,10 +6,10 @@ import { RegisterData, User } from '@/types/user';
 export async function POST(request: NextRequest) {
   try {
     const body: RegisterData = await request.json();
-    const { email, password, firstName, lastName } = body;
+    const { email, password, firstName, lastName, smokingData } = body;
 
     // Validate input
-    if (!email || !password || !firstName || !lastName) {
+    if (!email || !password || !firstName || !lastName || !smokingData) {
       return NextResponse.json(
         { error: 'Alle Felder sind erforderlich' },
         { status: 400 }
@@ -29,6 +29,21 @@ export async function POST(request: NextRequest) {
     if (password.length < 6) {
       return NextResponse.json(
         { error: 'Passwort muss mindestens 6 Zeichen lang sein' },
+        { status: 400 }
+      );
+    }
+
+    // Validate smoking data
+    if (smokingData.cigarettesPerDay <= 0) {
+      return NextResponse.json(
+        { error: 'Ungültige Anzahl Zigaretten pro Tag' },
+        { status: 400 }
+      );
+    }
+
+    if (smokingData.reasonsToQuit.length === 0) {
+      return NextResponse.json(
+        { error: 'Bitte wählen Sie mindestens einen Grund zum Aufhören aus' },
         { status: 400 }
       );
     }
@@ -53,6 +68,10 @@ export async function POST(request: NextRequest) {
       password: hashedPassword,
       firstName,
       lastName,
+      smokingData: {
+        ...smokingData,
+        quitDate: new Date(smokingData.quitDate),
+      },
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -60,19 +79,34 @@ export async function POST(request: NextRequest) {
     const result = await users.insertOne(newUser);
     const token = generateToken(result.insertedId.toString());
 
-    // Return user data without password
-    return NextResponse.json({
-      message: 'Benutzer erfolgreich registriert',
-      token,
-      user: {
-        _id: result.insertedId,
-        email,
-        firstName,
-        lastName,
-        createdAt: newUser.createdAt,
-        updatedAt: newUser.updatedAt,
+    // Return user without password
+    const userWithoutPassword = {
+      _id: result.insertedId,
+      email: newUser.email,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      smokingData: newUser.smokingData,
+      createdAt: newUser.createdAt,
+      updatedAt: newUser.updatedAt,
+    };
+
+    const response = NextResponse.json(
+      {
+        message: 'Benutzer erfolgreich erstellt',
+        user: userWithoutPassword,
       },
+      { status: 201 }
+    );
+
+    // Set HTTP-only cookie
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60, // 7 days
     });
+
+    return response;
   } catch (error) {
     console.error('Registration error:', error);
     return NextResponse.json(
