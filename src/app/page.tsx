@@ -98,6 +98,17 @@ export default function Dashboard() {
                 Hallo, {user.firstName}
               </span>
               <motion.button
+                onClick={() => router.push('/analytics')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-2 text-gray-700 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl hover:from-blue-200 hover:to-indigo-200 transition-all duration-200 border border-blue-200"
+                title="Analytics"
+              >
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </motion.button>
+              <motion.button
                 onClick={() => router.push('/gamification')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
