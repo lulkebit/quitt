@@ -11,6 +11,7 @@ import {
   getMotivationalMessage,
   SmokingStatistics 
 } from '@/lib/smokingStats';
+import CravingDashboard from '@/components/CravingDashboard';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -266,6 +267,9 @@ export default function Dashboard() {
                   ))}
                 </div>
               </motion.div>
+
+              {/* Craving Management */}
+              <CravingDashboard />
 
               {/* Motivation Section */}
               <motion.div
