@@ -220,3 +220,146 @@ body {
   border-color: var(--gray-400);
   transform: translateY(-1px);
 }
+
+/* Chart and Analytics specific styles */
+.chart-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 12px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+.progress-circle {
+  transition: stroke-dasharray 0.6s ease-in-out;
+}
+
+/* Calendar specific styles */
+.calendar-day {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+.calendar-day.smoke-free {
+  background: linear-gradient(135deg, var(--green-100), var(--green-200));
+  border-color: var(--green-300);
+}
+
+.calendar-day.today {
+  box-shadow: 0 0 0 2px var(--blue);
+}
+
+.milestone-indicator {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Gradient backgrounds */
+.gradient-green {
+  background: linear-gradient(135deg, var(--green-400), var(--green-600));
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.gradient-orange {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+/* Interactive elements */
+.interactive-scale:hover {
+  transform: scale(1.02);
+}
+
+.interactive-scale:active {
+  transform: scale(0.98);
+}
+
+/* Apple-style segmented control */
+.segmented-control {
+  background: var(--gray-100);
+  border-radius: var(--radius);
+  padding: 4px;
+  display: flex;
+  gap: 2px;
+}
+
+.segmented-control-option {
+  padding: 8px 16px;
+  border-radius: calc(var(--radius) - 4px);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.segmented-control-option.active {
+  background: white;
+  box-shadow: var(--shadow-sm);
+  color: var(--foreground);
+}
+
+.segmented-control-option:not(.active) {
+  color: var(--foreground-secondary);
+}
+
+.segmented-control-option:not(.active):hover {
+  color: var(--foreground);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid var(--gray-200);
+  border-top: 2px solid var(--green-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .card {
+    border-radius: var(--radius-sm);
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
