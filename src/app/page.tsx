@@ -67,7 +67,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-green-50/30">
+    <div className="min-h-screen bg-gray-50">
       {/* Navigation - Apple Style */}
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
