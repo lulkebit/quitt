@@ -98,6 +98,17 @@ export default function Dashboard() {
                 Hallo, {user.firstName}
               </span>
               <motion.button
+                onClick={() => router.push('/gamification')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-2 text-gray-700 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl hover:from-purple-200 hover:to-pink-200 transition-all duration-200 border border-purple-200"
+                title="Gamification"
+              >
+                <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+              </motion.button>
+              <motion.button
                 onClick={() => router.push('/settings')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -265,6 +276,118 @@ export default function Dashboard() {
                       </div>
                     </motion.div>
                   ))}
+                </div>
+              </motion.div>
+
+              {/* Gamification Preview */}
+              <motion.div
+                variants={fadeInUp}
+                className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 shadow-sm border border-purple-200/50"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">Deine Erfolge</h3>
+                    <p className="text-sm text-gray-600">Sammle Abzeichen und verdiene Belohnungen</p>
+                  </div>
+                  <motion.button
+                    onClick={() => router.push('/gamification')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-medium text-sm hover:shadow-lg transition-all duration-200"
+                  >
+                    Alle anzeigen
+                  </motion.button>
+                </div>
+
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Level Preview */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/70 backdrop-blur-sm rounded-xl p-4 text-center border border-white/50"
+                  >
+                    <div className="text-2xl mb-2">⭐</div>
+                    <div className="text-xl font-bold text-blue-600">1</div>
+                    <div className="text-xs text-gray-600">Level</div>
+                  </motion.div>
+
+                  {/* Streak Preview */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/70 backdrop-blur-sm rounded-xl p-4 text-center border border-white/50"
+                  >
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="text-2xl mb-2"
+                    >
+                      🔥
+                    </motion.div>
+                    <div className="text-xl font-bold text-orange-600">{stats.daysSinceQuit}</div>
+                    <div className="text-xs text-gray-600">Tage Serie</div>
+                  </motion.div>
+
+                  {/* Achievement Preview */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/70 backdrop-blur-sm rounded-xl p-4 text-center border border-white/50"
+                  >
+                    <div className="text-2xl mb-2">🏆</div>
+                    <div className="text-xl font-bold text-purple-600">
+                      {stats.daysSinceQuit >= 1 ? '1' : '0'}
+                    </div>
+                    <div className="text-xs text-gray-600">Abzeichen</div>
+                  </motion.div>
+
+                  {/* Rewards Preview */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/70 backdrop-blur-sm rounded-xl p-4 text-center border border-white/50"
+                  >
+                    <div className="text-2xl mb-2">🎁</div>
+                    <div className="text-xl font-bold text-green-600">
+                      {formatCurrency(stats.moneySaved)}
+                    </div>
+                    <div className="text-xs text-gray-600">verfügbar</div>
+                  </motion.div>
+                </div>
+
+                {/* Quick Achievement Showcase */}
+                <div className="mt-6 pt-6 border-t border-white/50">
+                  <div className="flex items-center justify-center space-x-4">
+                    {stats.daysSinceQuit >= 1 && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.5, type: "spring" }}
+                        className="flex items-center space-x-2 bg-white/70 px-3 py-2 rounded-lg border border-white/50"
+                      >
+                        <span className="text-lg">🌟</span>
+                        <span className="text-sm font-medium text-gray-700">Erster Tag!</span>
+                      </motion.div>
+                    )}
+                    {stats.daysSinceQuit >= 7 && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.7, type: "spring" }}
+                        className="flex items-center space-x-2 bg-white/70 px-3 py-2 rounded-lg border border-white/50"
+                      >
+                        <span className="text-lg">🏆</span>
+                        <span className="text-sm font-medium text-gray-700">Eine Woche!</span>
+                      </motion.div>
+                    )}
+                    {stats.daysSinceQuit >= 30 && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.9, type: "spring" }}
+                        className="flex items-center space-x-2 bg-white/70 px-3 py-2 rounded-lg border border-white/50"
+                      >
+                        <span className="text-lg">👑</span>
+                        <span className="text-sm font-medium text-gray-700">Ein Monat!</span>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
               </motion.div>
 

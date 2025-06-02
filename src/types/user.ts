@@ -12,6 +12,62 @@ export interface SmokingData {
   motivationLevel: 1 | 2 | 3 | 4 | 5; // 1 = low, 5 = very high
 }
 
+// Gamification System Types
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  category: 'milestone' | 'health' | 'savings' | 'social' | 'streak';
+  type: 'bronze' | 'silver' | 'gold' | 'platinum';
+  requirement: number;
+  unit: 'days' | 'euros' | 'cigarettes' | 'streaks' | 'months';
+  unlockedAt?: Date;
+  isUnlocked: boolean;
+  progress: number;
+  maxProgress: number;
+}
+
+export interface StreakData {
+  currentStreak: number;
+  longestStreak: number;
+  lastCheckIn: Date;
+  streakHistory: Date[];
+  milestones: number[]; // Days reached (7, 30, 100, etc.)
+}
+
+export interface LevelSystem {
+  currentLevel: number;
+  xp: number;
+  xpToNextLevel: number;
+  totalXp: number;
+  levelTitle: string;
+  levelDescription: string;
+}
+
+export interface VirtualReward {
+  id: string;
+  title: string;
+  description: string;
+  category: 'treat' | 'experience' | 'item' | 'upgrade';
+  cost: number; // in saved euros
+  icon: string;
+  isPurchased: boolean;
+  purchasedAt?: Date;
+  isAvailable: boolean;
+  requiredLevel?: number;
+}
+
+export interface GamificationData {
+  achievements: Achievement[];
+  streak: StreakData;
+  level: LevelSystem;
+  virtualRewards: VirtualReward[];
+  totalRewardsEarned: number;
+  totalMoneySpent: number;
+  lastActivityDate: Date;
+}
+
 // Craving related types
 export interface CravingEntry {
   _id?: ObjectId;
@@ -56,6 +112,7 @@ export interface User {
   firstName: string;
   lastName: string;
   smokingData: SmokingData;
+  gamificationData?: GamificationData;
   createdAt: Date;
   updatedAt: Date;
 }
